@@ -12,17 +12,11 @@ public class SynchronizedBlockCounter implements SiteVisitCounter {
         }catch (InterruptedException e){
             System.out.println(e.getMessage());
         }
-        this.count++;
+        count++;
     }
 
     @Override
     public synchronized int getVisitCount() {
-        try {
-            Thread.sleep(100);
-            return this.count;
-        }catch (InterruptedException e){
-            System.out.println(e.getMessage());
-        }
-        return 0;
+        return  count;
     }
 }

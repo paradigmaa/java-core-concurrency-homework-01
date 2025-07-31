@@ -8,11 +8,16 @@ public class UnsynchronizedCounter implements SiteVisitCounter {
 
     @Override
     public void incrementVisitCount() {
-        this.count++;
+        try {
+            Thread.sleep(100);
+            count++;
+        }catch (InterruptedException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public int getVisitCount() {
-        return this.count;
+        return count;
     }
 }

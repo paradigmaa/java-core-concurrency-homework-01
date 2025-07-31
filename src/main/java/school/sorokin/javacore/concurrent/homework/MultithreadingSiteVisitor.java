@@ -25,7 +25,7 @@ public class MultithreadingSiteVisitor {
             thread.start();
             threads.add(thread);
         }
-    };
+    }
 
     public void waitUntilAllVisited() {
         for (Thread thread : threads) {

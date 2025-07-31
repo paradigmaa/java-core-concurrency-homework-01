@@ -27,11 +27,8 @@ public class ReentrantLockCounter implements SiteVisitCounter {
     public int getVisitCount() {
         reentrantLock.lock();
         try {
-            Thread.sleep(100);
-            return this.count;
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } finally {
+            return count;
+        }finally {
             reentrantLock.unlock();
         }
     }

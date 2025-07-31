@@ -1,19 +1,27 @@
 package school.sorokin.javacore.concurrent.homework;
 
-import school.sorokin.javacore.concurrent.homework.SiteVisitCounterPack.VolatileCounter;
+import school.sorokin.javacore.concurrent.homework.SiteVisitCounterPack.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        TestCounter testCounter = new TestCounter();
-        System.out.println("volatileCounterTest");
-        testCounter.volatileCounterTest(150);
-        System.out.println("atomicIntegerCounterTest");
-        testCounter.atomicIntegerCounterTest(20);
-        System.out.println("reentrantLockCounterTest");
-        testCounter.reentrantLockCounterTest(100);
-        System.out.println("unsynchronizedCounterTest");
-        testCounter.unsynchronizedCounterTest(100);
-        System.out.println("synchronizedBlockCounterTest");
-        testCounter.synchronizedBlockCounterTest(20);
+        List<SiteVisitCounter> counters = List.of(
+                new AtomicIntegerCounter(),
+                new ReentrantLockCounter(),
+                new SynchronizedBlockCounter(),
+                new VolatileCounter(),
+                new UnsynchronizedCounter()
+        );
+
+        for(SiteVisitCounter c: counters){
+            MultithreadingSiteVisitor m = new MultithreadingSiteVisitor(c);
+            System.out.println(c.getClass());
+            m.visitMultithread(25);
+            m.waitUntilAllVisited();
+            System.out.println(m.getTotalTimeOfHandling());
+        }
+
     }
 }
